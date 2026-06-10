@@ -1,0 +1,213 @@
+import { Link } from "@tanstack/react-router"
+import { Button } from "../ui/button"
+import { Image } from "@unpic/react"
+import { Item, ItemContent, ItemTitle } from "../ui/item"
+import { cn, hyphenToWhitespace } from "@/lib/utils"
+import type {
+  ChainWithImage,
+  EvolutionChain,
+} from "@/types/route-pokemon-_name"
+import React from "react"
+
+type PokemonRef = {
+  id: number
+  name: string
+  image: string | null
+} | null
+
+interface PokemonNavProps {
+  prev: PokemonRef
+  next: PokemonRef
+}
+
+export function PokemonNav({ prev, next }: PokemonNavProps) {
+  return (
+    <nav className="container-spacing mx-auto mt-6 flex justify-between gap-2 3xl:gap-4">
+      {prev ? (
+        <>
+          <Button
+            nativeButton={false}
+            render={<Link to="/pokemon/$name" params={{ name: prev.name }} />}
+            className="h-full shrink grow basis-full py-2.5 capitalize"
+            variant="outline"
+          >
+            <Image
+              alt={prev.name}
+              src={prev?.image || "/pokeball-monocolor.svg"}
+              layout="fixed"
+              height={44}
+              width={44}
+              className="size-11 object-contain"
+            />
+            <div className="flex flex-col">
+              <span className="text-muted-foreground">#{prev.id}</span>
+              <span className="typography-h3 max-2xl:text-sm">
+                {hyphenToWhitespace(prev.name)}
+              </span>
+            </div>
+          </Button>
+        </>
+      ) : null}
+
+      {next ? (
+        <>
+          <Button
+            nativeButton={false}
+            render={<Link to="/pokemon/$name" params={{ name: next.name }} />}
+            className="h-full shrink grow basis-full py-2.5 capitalize"
+            variant="outline"
+          >
+            <div className="flex flex-col">
+              <span className="self-end text-muted-foreground">#{next.id}</span>
+              <span className="typography-h3 max-2xl:text-sm">
+                {hyphenToWhitespace(next.name)}
+              </span>
+            </div>
+            <Image
+              alt={next.name}
+              src={next?.image || "/pokeball-monocolor.svg"}
+              layout="fixed"
+              height={44}
+              width={44}
+              className="size-11 object-contain"
+            />
+          </Button>
+        </>
+      ) : null}
+    </nav>
+  )
+}
+
+// todo: Evolution Chain
+
+export function EvolutionChain({ data }: { data: EvolutionChain }) {
+  return (
+    <>
+      <EvolutionStage
+        data={data.chain}
+        index={2}
+        className="group/base mx-auto w-fit max-w-4xl"
+        style={
+          {
+            "--chevron": `var(--chevron-right-img)`,
+          } as React.CSSProperties
+        }
+      />
+    </>
+  )
+}
+
+function EvolutionStage({
+  data,
+  index,
+  className,
+  ...props
+}: React.ComponentProps<"div"> & { data: ChainWithImage; index: number }) {
+  const { evolves_to, image, species } = data
+  const evolutions = evolves_to.length
+  const evolutionChain =
+    evolutions > 3
+      ? "multi"
+      : evolutions > 2
+        ? "tri"
+        : evolutions > 1
+          ? "split"
+          : evolutions === 1
+            ? "linear"
+            : "none"
+
+  return (
+    <div
+      {...props}
+      data-next-chain={evolutionChain}
+      className={cn(
+        "flex flex-col flex-wrap justify-center gap-x-8 gap-y-6 3xl:flex-row",
+        // todo: linear evolution chain
+        "group-data-[evolution=2]/evolution:before:size-9 group-data-[evolution=2]/evolution:before:self-center group-data-[evolution=2]/evolution:before:bg-(image:--chevron) group-data-[evolution=2]/evolution:before:bg-center group-data-[evolution=2]/evolution:before:bg-no-repeat",
+        "max-3xl:group-data-[evolution=2]/evolution:before:rotate-90",
+        // todo: non-linear evolution chain
+        "group-data-evolution/evolution:group-has-[>:nth-child(2)]/evolution:before:rotate-90",
+        "group-data-[evolution=2]/evolution:group-has-[>[data-next-chain='split']]/evolution:before:rotate-90",
+        //  todo: unique chain like Eevee.
+        "group-data-[evolution=2]/evolution:group-has-[>:nth-child(4)]/evolution:before:hidden",
+        { "group/chain": index === 3 },
+        className
+      )}
+    >
+      <EvolutionCard
+        data-stage={index - 1}
+        image={image}
+        name={species}
+        className={cn([
+          // todo: linear evolution stage
+          "3xl:group-data-[evolution=2]/evolution:group-not-has-[>:is([data-next-chain='none'],[data-next-chain='split'],[data-next-chain='tri'],[data-next-chain='multi'])]/evolution:group-has-[>[data-next-chain='linear']]/evolution:group-has-[>:only-child]/evolution:flex-1",
+          "3xl:group-data-[evolution=2]/evolution:group-not-has-[>:is([data-next-chain='none'],[data-next-chain='split'],[data-next-chain='tri'],[data-next-chain='multi'])]/evolution:group-has-[>[data-next-chain='linear']]/evolution:group-has-[>:only-child]/evolution:basis-auto",
+          "3xl:group-data-[evolution=2]/evolution:group-not-has-[>:is([data-next-chain='none'],[data-next-chain='split'],[data-next-chain='tri'],[data-next-chain='multi'])]/evolution:group-has-[>[data-next-chain='linear']]/evolution:group-has-[>:only-child]/evolution:before:grow",
+        ])}
+      />
+      {evolutions > 0 && (
+        <div
+          data-evolution={index}
+          className={cn([
+            { "group/evolution": index === 2 },
+            "flex items-start",
+            "has-[[data-evolution='3']>:nth-child(2)]:basis-full has-[>:nth-child(2)]:basis-full",
+            // todo: If the evolution chain is linear, then:
+            "has-[>:only-child]:has-[[data-evolution='3']>:only-child]:grow",
+            //  //: ----------------------------------------------------------------------------------------------------
+            // todo: Kung labaw sa 3 ang anaswagan (pananglitan si Eevee).
+            "has-[>:nth-child(4)]:flex-wrap has-[>:nth-child(4)]:*:shrink-0 has-[>:nth-child(4)]:*:grow has-[>:nth-child(4)]:*:basis-1/2 3xl:has-[>:nth-child(4)]:*:basis-1/4",
+            // todo: Eevee evolution chevron
+            "data-[evolution=2]:has-[>:nth-child(4)]:before:size-9 data-[evolution=2]:has-[>:nth-child(4)]:before:basis-full data-[evolution=2]:has-[>:nth-child(4)]:before:rotate-90 data-[evolution=2]:has-[>:nth-child(4)]:before:self-center data-[evolution=2]:has-[>:nth-child(4)]:before:bg-(image:--chevron) data-[evolution=2]:has-[>:nth-child(4)]:before:bg-center data-[evolution=2]:has-[>:nth-child(4)]:before:bg-no-repeat",
+          ])}
+        >
+          {evolves_to.map((evolution, i) => (
+            <EvolutionStage
+              key={i}
+              data={evolution}
+              index={index + 1}
+              className={cn([
+                "flex-1",
+                "group-data-[evolution=2]/evolution:group-has-[>:nth-child(2)]/evolution:flex-col",
+                "group-data-[evolution=2]/evolution:group-has-[>:nth-child(2)]/evolution:flex-nowrap",
+                "group-data-[evolution=2]/evolution:group-has-[[data-evolution='3']>:nth-child(2)]/evolution:flex-col",
+                "group-data-[evolution=2]/evolution:group-has-[[data-evolution='3']>:nth-child(2)]/evolution:flex-nowrap",
+              ])}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+function EvolutionCard({
+  className,
+  image,
+  name,
+  ...props
+}: {
+  image: string
+  name: string
+} & React.ComponentProps<"div">) {
+  return (
+    <div
+      {...props}
+      className={cn("flex flex-col justify-center 2xl:flex-row", className)}
+    >
+      <Item>
+        <ItemContent className="flex flex-col items-center">
+          <Image
+            alt={name}
+            src={image}
+            layout="fixed"
+            width={128}
+            height={128}
+            className={cn("size-32 object-contain")}
+          />
+          <ItemTitle className="capitalize max-lg:text-xs">{name}</ItemTitle>
+        </ItemContent>
+      </Item>
+    </div>
+  )
+}

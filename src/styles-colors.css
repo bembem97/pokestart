@@ -1,0 +1,364 @@
+:root {
+  /* --pokemon-black: oklch(14.1% 0.005 285.823);
+  --pokemon-blue: oklch(42.4% 0.199 265.638);
+  --pokemon-brown: oklch(28.6% 0.066 53.813);
+  --pokemon-gray: oklch(55% 0 0);
+  --pokemon-green: oklch(44.8% 0.119 151.328);
+  --pokemon-pink: oklch(45.9% 0.187 3.815);
+  --pokemon-purple: oklch(43.8% 0.218 303.724);
+  --pokemon-red: oklch(50.5% 0.213 27.518);
+  --pokemon-white: oklch(89% 0 0);
+  --pokemon-yellow: oklch(80.987% 0.16685 81.914); */
+  --pokemon-fire: oklch(0.7 0.19 39.23);
+  --pokemon-water: oklch(0.64 0.13 251.43);
+  --pokemon-grass: oklch(0.67 0.14 142.13);
+  --pokemon-electric: oklch(0.84 0.17 90.42);
+  --pokemon-ice: oklch(0.79 0.09 186.34);
+  --pokemon-fighting: oklch(0.56 0.18 24.92);
+  --pokemon-poison: oklch(0.55 0.15 322.85);
+  --pokemon-ground: oklch(0.71 0.12 84.27);
+  --pokemon-flying: oklch(0.74 0.09 262.05);
+  --pokemon-psychic: oklch(0.65 0.19 7.74);
+  --pokemon-bug: oklch(0.69 0.15 122.33);
+  --pokemon-rock: oklch(0.65 0.07 92.91);
+  --pokemon-ghost: oklch(0.42 0.13 289.8);
+  --pokemon-dragon: oklch(0.46 0.19 279.63);
+  --pokemon-dark: oklch(0.4 0.05 309.29);
+  --pokemon-steel: oklch(0.72 0.04 236.14);
+  --pokemon-fairy: oklch(0.81 0.09 351.11);
+  --pokemon-normal: oklch(0.68 0.04 107.47);
+  /*  */
+  --pokemon-black: var(--color-zinc-900);
+  --pokemon-blue: var(--color-blue-900);
+  --pokemon-brown: var(--color-amber-900);
+  --pokemon-gray: var(--color-zinc-800);
+  --pokemon-green: var(--color-green-900);
+  --pokemon-pink: var(--color-pink-900);
+  --pokemon-purple: var(--color-purple-900);
+  --pokemon-red: var(--color-red-900);
+  --pokemon-white: var(--color-white-700);
+  --pokemon-yellow: var(--color-yellow-900);
+
+  /* 
+  todo: pokemon contrast type color 
+  */
+  --pokemon-fire-contrast: color-mix(
+    in oklch,
+    var(--pokemon-fire),
+    contrast-color(var(--pokemon-fire))
+  );
+  --pokemon-water-contrast: color-mix(
+    in oklch,
+    var(--pokemon-water),
+    contrast-color(var(--pokemon-water))
+  );
+  --pokemon-grass-contrast: color-mix(
+    in oklch,
+    var(--pokemon-grass),
+    contrast-color(var(--pokemon-grass))
+  );
+  --pokemon-electric-contrast: color-mix(
+    in oklch,
+    var(--pokemon-electric),
+    contrast-color(var(--pokemon-electric))
+  );
+  --pokemon-ice-contrast: color-mix(
+    in oklch,
+    var(--pokemon-ice),
+    contrast-color(var(--pokemon-ice))
+  );
+  --pokemon-fighting-contrast: color-mix(
+    in oklch,
+    var(--pokemon-fighting),
+    contrast-color(var(--pokemon-fighting))
+  );
+  --pokemon-poison-contrast: color-mix(
+    in oklch,
+    var(--pokemon-poison),
+    contrast-color(var(--pokemon-poison))
+  );
+  --pokemon-ground-contrast: color-mix(
+    in oklch,
+    var(--pokemon-ground),
+    contrast-color(var(--pokemon-ground))
+  );
+  --pokemon-flying-contrast: color-mix(
+    in oklch,
+    var(--pokemon-flying),
+    contrast-color(var(--pokemon-flying))
+  );
+  --pokemon-psychic-contrast: color-mix(
+    in oklch,
+    var(--pokemon-psychic),
+    contrast-color(var(--pokemon-psychic))
+  );
+  --pokemon-bug-contrast: color-mix(
+    in oklch,
+    var(--pokemon-bug),
+    contrast-color(var(--pokemon-bug))
+  );
+  --pokemon-rock-contrast: color-mix(
+    in oklch,
+    var(--pokemon-rock),
+    contrast-color(var(--pokemon-rock))
+  );
+  --pokemon-ghost-contrast: color-mix(
+    in oklch,
+    var(--pokemon-ghost),
+    contrast-color(var(--pokemon-ghost))
+  );
+  --pokemon-dragon-contrast: color-mix(
+    in oklch,
+    var(--pokemon-dragon),
+    contrast-color(var(--pokemon-dragon))
+  );
+  --pokemon-dark-contrast: color-mix(
+    in oklch,
+    var(--pokemon-dark),
+    contrast-color(var(--pokemon-dark))
+  );
+  --pokemon-steel-contrast: color-mix(
+    in oklch,
+    var(--pokemon-steel),
+    contrast-color(var(--pokemon-steel))
+  );
+  --pokemon-fairy-contrast: color-mix(
+    in oklch,
+    var(--pokemon-fairy),
+    contrast-color(var(--pokemon-fairy))
+  );
+  --pokemon-normal-contrast: color-mix(
+    in oklch,
+    var(--pokemon-normal),
+    contrast-color(var(--pokemon-normal))
+  );
+  /* 
+  todo: pokemon contrast color 
+  */
+  --pokemon-black-contrast: color-mix(
+    in oklch,
+    var(--pokemon-black),
+    contrast-color(var(--pokemon-black))
+  );
+  --pokemon-blue-contrast: color-mix(
+    in oklch,
+    var(--pokemon-blue),
+    contrast-color(var(--pokemon-blue))
+  );
+  --pokemon-brown-contrast: color-mix(
+    in oklch,
+    var(--pokemon-brown),
+    contrast-color(var(--pokemon-brown))
+  );
+  --pokemon-gray-contrast: color-mix(
+    in oklch,
+    var(--pokemon-gray),
+    contrast-color(var(--pokemon-gray))
+  );
+  --pokemon-green-contrast: color-mix(
+    in oklch,
+    var(--pokemon-green),
+    contrast-color(var(--pokemon-green))
+  );
+  --pokemon-pink-contrast: color-mix(
+    in oklch,
+    var(--pokemon-pink),
+    contrast-color(var(--pokemon-pink))
+  );
+  --pokemon-purple-contrast: color-mix(
+    in oklch,
+    var(--pokemon-purple),
+    contrast-color(var(--pokemon-purple))
+  );
+  --pokemon-red-contrast: color-mix(
+    in oklch,
+    var(--pokemon-red),
+    contrast-color(var(--pokemon-red))
+  );
+  --pokemon-white-contrast: color-mix(
+    in oklch,
+    var(--pokemon-white),
+    contrast-color(var(--pokemon-white))
+  );
+  --pokemon-yellow-contrast: color-mix(
+    in oklch,
+    var(--pokemon-yellow),
+    contrast-color(var(--pokemon-yellow))
+  );
+  /* 
+  todo: pokemon background color 
+  */
+  --pokemon-black-bg: color-mix(
+    in oklab,
+    var(--color-zinc-500) 30%,
+    transparent
+  );
+  --pokemon-blue-bg: color-mix(
+    in oklab,
+    var(--color-blue-500) 30%,
+    transparent
+  );
+  --pokemon-brown-bg: color-mix(
+    in oklab,
+    var(--color-amber-500) 30%,
+    transparent
+  );
+  --pokemon-gray-bg: color-mix(
+    in oklab,
+    var(--color-gray-400) 30%,
+    transparent
+  );
+  --pokemon-green-bg: color-mix(
+    in oklab,
+    var(--color-green-400) 30%,
+    transparent
+  );
+  --pokemon-pink-bg: color-mix(
+    in oklab,
+    var(--color-pink-400) 30%,
+    transparent
+  );
+  --pokemon-purple-bg: color-mix(
+    in oklab,
+    var(--color-purple-500) 30%,
+    transparent
+  );
+  --pokemon-red-bg: color-mix(in oklab, var(--color-red-400) 30%, transparent);
+  --pokemon-white-bg: color-mix(
+    in oklab,
+    var(--color-stone-200) 30%,
+    transparent
+  );
+  --pokemon-yellow-bg: color-mix(
+    in oklab,
+    var(--color-zinc-300) 30%,
+    transparent
+  );
+}
+
+.dark {
+  --pokemon-black: oklch(13% 0 0);
+  --pokemon-blue: oklch(54.6% 0.245 262.881);
+  --pokemon-brown: oklch(15% 0.04 64.79);
+  --pokemon-gray: oklch(35.75% 0.00725 264.535);
+  --pokemon-green: oklch(46% 0.14 149.35);
+  --pokemon-pink: oklch(42.255% 0.16683 356.973);
+  --pokemon-purple: oklch(30% 0.14 304.5);
+  --pokemon-red: oklch(17% 0.07 28.32);
+  --pokemon-white: oklch(56% 0 0);
+  --pokemon-yellow: oklch(16% 0.04 103.02);
+  /* 
+  todo: pokemon contrast color 
+  */
+  --pokemon-black-contrast: color-mix(
+    in oklch,
+    var(--pokemon-black),
+    contrast-color(var(--pokemon-black))
+  );
+  --pokemon-blue-contrast: color-mix(
+    in oklch,
+    var(--pokemon-blue),
+    contrast-color(var(--pokemon-blue))
+  );
+  --pokemon-brown-contrast: color-mix(
+    in oklch,
+    var(--pokemon-brown),
+    contrast-color(var(--pokemon-brown))
+  );
+  --pokemon-gray-contrast: color-mix(
+    in oklch,
+    var(--pokemon-gray),
+    contrast-color(var(--pokemon-gray))
+  );
+  --pokemon-green-contrast: color-mix(
+    in oklch,
+    var(--pokemon-green),
+    contrast-color(var(--pokemon-green))
+  );
+  --pokemon-pink-contrast: color-mix(
+    in oklch,
+    var(--pokemon-pink),
+    contrast-color(var(--pokemon-pink))
+  );
+  --pokemon-purple-contrast: color-mix(
+    in oklch,
+    var(--pokemon-purple),
+    contrast-color(var(--pokemon-purple))
+  );
+  --pokemon-red-contrast: color-mix(
+    in oklch,
+    var(--pokemon-red),
+    contrast-color(var(--pokemon-red))
+  );
+  --pokemon-white-contrast: color-mix(
+    in oklch,
+    var(--pokemon-white),
+    contrast-color(var(--pokemon-white))
+  );
+  --pokemon-yellow-contrast: color-mix(
+    in oklch,
+    var(--pokemon-yellow),
+    contrast-color(var(--pokemon-yellow))
+  );
+}
+
+@theme inline {
+  --color-pokemon-black: var(--pokemon-black);
+  --color-pokemon-blue: var(--pokemon-blue);
+  --color-pokemon-brown: var(--pokemon-brown);
+  --color-pokemon-gray: var(--pokemon-gray);
+  --color-pokemon-green: var(--pokemon-green);
+  --color-pokemon-pink: var(--pokemon-pink);
+  --color-pokemon-purple: var(--pokemon-purple);
+  --color-pokemon-red: var(--pokemon-red);
+  --color-pokemon-white: var(--pokemon-white);
+  --color-pokemon-yellow: var(--pokemon-yellow);
+  --color-type-fire: var(--pokemon-fire);
+  --color-type-water: var(--pokemon-water);
+  --color-type-grass: var(--pokemon-grass);
+  --color-type-electric: var(--pokemon-electric);
+  --color-type-ice: var(--pokemon-ice);
+  --color-type-fighting: var(--pokemon-fighting);
+  --color-type-poison: var(--pokemon-poison);
+  --color-type-ground: var(--pokemon-ground);
+  --color-type-flying: var(--pokemon-flying);
+  --color-type-psychic: var(--pokemon-psychic);
+  --color-type-bug: var(--pokemon-bug);
+  --color-type-rock: var(--pokemon-rock);
+  --color-type-ghost: var(--pokemon-ghost);
+  --color-type-dragon: var(--pokemon-dragon);
+  --color-type-dark: var(--pokemon-dark);
+  --color-type-steel: var(--pokemon-steel);
+  --color-type-fairy: var(--pokemon-fairy);
+  --color-type-normal: var(--pokemon-normal);
+
+  /* contrast */
+  --color-pokemon-black-contrast: var(--pokemon-black-contrast);
+  --color-pokemon-blue-contrast: var(--pokemon-blue-contrast);
+  --color-pokemon-brown-contrast: var(--pokemon-brown-contrast);
+  --color-pokemon-gray-contrast: var(--pokemon-gray-contrast);
+  --color-pokemon-green-contrast: var(--pokemon-green-contrast);
+  --color-pokemon-pink-contrast: var(--pokemon-pink-contrast);
+  --color-pokemon-purple-contrast: var(--pokemon-purple-contrast);
+  --color-pokemon-red-contrast: var(--pokemon-red-contrast);
+  --color-pokemon-white-contrast: var(--pokemon-white-contrast);
+  --color-pokemon-yellow-contrast: var(--pokemon-yellow-contrast);
+  --color-type-fire-contrast: var(--pokemon-fire-contrast);
+  --color-type-water-contrast: var(--pokemon-water-contrast);
+  --color-type-grass-contrast: var(--pokemon-grass-contrast);
+  --color-type-electric-contrast: var(--pokemon-electric-contrast);
+  --color-type-ice-contrast: var(--pokemon-ice-contrast);
+  --color-type-fighting-contrast: var(--pokemon-fighting-contrast);
+  --color-type-poison-contrast: var(--pokemon-poison-contrast);
+  --color-type-ground-contrast: var(--pokemon-ground-contrast);
+  --color-type-flying-contrast: var(--pokemon-flying-contrast);
+  --color-type-psychic-contrast: var(--pokemon-psychic-contrast);
+  --color-type-bug-contrast: var(--pokemon-bug-contrast);
+  --color-type-rock-contrast: var(--pokemon-rock-contrast);
+  --color-type-ghost-contrast: var(--pokemon-ghost-contrast);
+  --color-type-dragon-contrast: var(--pokemon-dragon-contrast);
+  --color-type-dark-contrast: var(--pokemon-dark-contrast);
+  --color-type-steel-contrast: var(--pokemon-steel-contrast);
+  --color-type-fairy-contrast: var(--pokemon-fairy-contrast);
+  --color-type-normal-contrast: var(--pokemon-normal-contrast);
+}

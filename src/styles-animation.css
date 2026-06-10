@@ -1,0 +1,71 @@
+@utility animate-this-way {
+  animation: this-way 1s infinite;
+}
+
+@keyframes this-way {
+  0%,
+  100% {
+    transform: none;
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateX(-25%);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+@utility animate-float {
+  animation: float 3s infinite ease-in-out;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-1rem);
+  }
+}
+
+@utility animate-progress {
+  @apply fixed top-0 z-9999 h-0.5 w-full origin-left bg-primary/30;
+  &::before {
+    @apply block size-full origin-left bg-primary;
+    content: "";
+    animation: progress 1.5s ease-in-out infinite;
+  }
+}
+
+@keyframes progress {
+  0% {
+    transform-origin: left;
+    transform: scaleX(0);
+  }
+  50% {
+    transform-origin: left;
+    transform: scaleX(1);
+  }
+  51% {
+    transform-origin: right;
+    transform: scaleX(1);
+  }
+  100% {
+    transform-origin: right;
+    transform: scaleX(0);
+  }
+}
+
+@utility animate-fill-up {
+  animation: fill-up 1s ease-out forwards;
+}
+
+@keyframes fill-up {
+  from {
+    scale: 0 var(--tw-scale-y);
+  }
+  to {
+    scale: var(--tw-scale-x) var(--tw-scale-y);
+  }
+}
