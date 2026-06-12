@@ -18,6 +18,7 @@ import type { PokemonItem } from "@/types/pokemon-query"
 import { POKEMON } from "@/const/pokemon"
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
 import { createServerFn } from "@tanstack/react-start"
+import Typography from "../common/typography"
 
 type SearchQuery = UseQueryResult<NoInfer<PokemonItem[]>, Error>
 
@@ -153,21 +154,25 @@ function QueryResult({
   if (isError)
     return (
       <CommandEmpty>
-        <small>{error?.message || "An error has occured."}</small>
+        <Typography variant="small">
+          {error?.message || "An error has occured."}
+        </Typography>
       </CommandEmpty>
     )
 
   if (data === undefined)
     return (
       <CommandEmpty>
-        <p>Try to search a {POKEMON}.</p>
+        <Typography variant="p" className="text-muted-foreground">
+          Try to search a {POKEMON}.
+        </Typography>
       </CommandEmpty>
     )
 
   if (data.length === 0)
     return (
       <CommandEmpty>
-        <p>
+        <Typography variant="p">
           No pokemon matched your search for &quot;
           <span
             data-nostyle
@@ -176,7 +181,7 @@ function QueryResult({
             {query}
           </span>
           &quot; . Try different names or refine your search.
-        </p>
+        </Typography>
       </CommandEmpty>
     )
 

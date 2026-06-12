@@ -16,6 +16,7 @@ import { Image } from "@unpic/react"
 import type { PokemonType } from "@/types/pokedex-colors"
 import { Badge } from "../ui/badge"
 import { PokemonType as Pokemon } from "./pokemon-type"
+import React from "react"
 
 // todo: Pokedex Generation Items
 export function GenerationItemGroup({
@@ -135,7 +136,7 @@ export function PokemonCard({
       className="isolote @container/iconic relative before:absolute before:inset-0 before:-z-10 before:bg-[url('/pokeball-monocolor.svg')] before:bg-size-[60%] before:bg-position-[100%_50%] before:bg-no-repeat before:opacity-5"
     >
       <ItemContent>
-        <ItemTitle className="text-foreground">
+        <ItemTitle className="w-fit whitespace-break-spaces text-foreground">
           {hyphenToWhitespace(name)}
         </ItemTitle>
         {children}
@@ -153,6 +154,7 @@ export function PokemonCardMedia({
   image: string
   name: string
 }) {
+  const [src, setSrc] = React.useState(image)
   return (
     <>
       <span
@@ -166,11 +168,16 @@ export function PokemonCardMedia({
       </span>
       <Image
         alt={name}
-        src={image}
-        layout="fixed"
+        src={src}
+        layout="constrained"
         width={200}
         height={200}
-        className="ml-auto h-fit w-42 object-contain"
+        className="ml-auto size-auto flex-1 object-contain text-[8px] break-all whitespace-break-spaces text-transparent"
+        onError={() =>
+          setSrc(
+            `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${id}.png`
+          )
+        }
       />
     </>
   )

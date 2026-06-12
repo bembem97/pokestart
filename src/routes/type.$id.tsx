@@ -11,6 +11,7 @@ import { POKEMON } from "@/const/pokemon"
 import { Pokemon as PokemonAPI, type PokeAPI } from "@/lib/pokedex-api"
 import { getPokemon } from "@/lib/pokemon-utils"
 import { createTitle } from "@/lib/seo"
+import { hyphenToWhitespace } from "@/lib/utils"
 import type { PokemonType } from "@/types/pokedex-colors"
 import { createFileRoute, notFound } from "@tanstack/react-router"
 import { createServerFn } from "@tanstack/react-start"
@@ -68,7 +69,7 @@ const getType = createServerFn()
             no_damage_from: damage_relations.no_damage_from.map(damageRelation),
             no_damage_to: damage_relations.no_damage_to.map(damageRelation),
           },
-          generation: generation.name.replace(/-/, " "),
+          generation: hyphenToWhitespace(generation.name),
           id,
           move_damage_class,
           name: name as PokemonType,

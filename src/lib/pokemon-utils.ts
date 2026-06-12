@@ -1,5 +1,5 @@
 import type { PokemonItem } from "@/types/pokemon-query"
-import type { PokeAPI } from "./pokedex-api"
+import { type PokeAPI } from "./pokedex-api"
 
 export function sortByInput(array: PokemonItem[], input: string) {
   const lowerCase = input.toLowerCase()

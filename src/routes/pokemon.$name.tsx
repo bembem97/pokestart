@@ -7,10 +7,6 @@ import { Separator } from "@/components/ui/separator"
 import { POKEDEX } from "@/const/pokemon"
 import { Pokemon, type PokeAPI } from "@/lib/pokedex-api"
 import { getIdFromURL, getImagePathname } from "@/lib/pokemon-utils"
-// import {
-//   getPokemonFn,
-//   getPokemonNeighborsFn,
-// } from "@/function/pokemon-_name.functions"
 import { createTitle } from "@/lib/seo"
 import { capitalFirstLetter, hyphenToWhitespace } from "@/lib/utils"
 import type {
@@ -75,6 +71,8 @@ export const getPokemonFn = createServerFn({ method: "GET" })
         name: pokemon.name,
         image:
           pokemon.sprites.other["official-artwork"].front_default ||
+          pokemon.sprites.other.dream_world.front_default ||
+          pokemon.sprites.other.home.front_default ||
           "/pokeball-multicolor.svg",
         color: species.color.name as PokemonColor,
         shape: species.shape.name,
@@ -319,7 +317,7 @@ function PokemonArtwork({ data }: { data: Artwork }) {
   } = data
 
   return (
-    <div className="shrink grow basis-1/2">
+    <div className="shrink grow basis-1/2 max-3xl:row-start-1 max-3xl:row-end-2">
       <Item variant="pokemon" color={color}>
         <ItemContent className="space-y-4 pb-4">
           <Image
@@ -328,9 +326,9 @@ function PokemonArtwork({ data }: { data: Artwork }) {
             layout="fixed"
             width={200}
             height={200}
-            className="size-80 object-contain"
+            className="mx-auto size-80 object-contain"
           />
-          <div className="flex justify-center gap-1">
+          <div className="flex justify-center gap-2">
             {types.map((type) => (
               <Badge
                 key={type}
@@ -444,7 +442,7 @@ function PokemonDetails({ data }: { data: Details }) {
                 aria-labelledby="generation"
                 className="lowercase! first-letter:capitalize"
               >
-                {generation}
+                {hyphenToWhitespace(generation)}
                 <span id="generation" className="sr-only">
                   {generation}
                 </span>
@@ -470,7 +468,7 @@ function PokemonDetails({ data }: { data: Details }) {
             </div>
             <div className="flex items-center py-2.5">
               <dt>Growth Rate</dt>
-              <dd>{growthRate}</dd>
+              <dd>{hyphenToWhitespace(growthRate)}</dd>
             </div>
             <div className="flex items-center py-2.5">
               <dt>Evolved from</dt>

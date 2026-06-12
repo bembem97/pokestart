@@ -8,6 +8,7 @@ import type {
   EvolutionChain,
 } from "@/types/route-pokemon-_name"
 import React from "react"
+import Typography from "../common/typography"
 
 type PokemonRef = {
   id: number
@@ -28,22 +29,34 @@ export function PokemonNav({ prev, next }: PokemonNavProps) {
           <Button
             nativeButton={false}
             render={<Link to="/pokemon/$name" params={{ name: prev.name }} />}
-            className="h-full shrink grow basis-full py-2.5 capitalize"
+            className="h-full shrink grow basis-full px-1.5 py-2.5 capitalize"
             variant="outline"
           >
-            <Image
-              alt={prev.name}
-              src={prev?.image || "/pokeball-monocolor.svg"}
-              layout="fixed"
-              height={44}
-              width={44}
-              className="size-11 object-contain"
-            />
-            <div className="flex flex-col">
-              <span className="text-muted-foreground">#{prev.id}</span>
-              <span className="typography-h3 max-2xl:text-sm">
+            <div className="grid grid-cols-[max-content_1fr] items-center gap-x-0.5">
+              <Typography
+                variant="small"
+                render={<span />}
+                className="col-start-2 col-end-3 2xl:row-start-1 2xl:row-end-2"
+              >
+                #{prev.id}
+              </Typography>
+              <Typography
+                variant="h6"
+                render={<span />}
+                className="col-span-full row-span-2 whitespace-break-spaces max-2xl:text-sm 2xl:col-start-2 2xl:col-end-3 2xl:row-start-2 2xl:row-end-3"
+              >
                 {hyphenToWhitespace(prev.name)}
-              </span>
+              </Typography>
+              <div className="col-start-1 col-end-2 row-start-1 row-end-2 grid place-items-center 2xl:row-start-1 2xl:row-end-3">
+                <Image
+                  alt={prev.name}
+                  src={prev?.image || "/pokeball-monocolor.svg"}
+                  layout="fixed"
+                  height={44}
+                  width={44}
+                  className="size-11 object-contain"
+                />
+              </div>
             </div>
           </Button>
         </>
@@ -54,23 +67,35 @@ export function PokemonNav({ prev, next }: PokemonNavProps) {
           <Button
             nativeButton={false}
             render={<Link to="/pokemon/$name" params={{ name: next.name }} />}
-            className="h-full shrink grow basis-full py-2.5 capitalize"
+            className="h-full shrink grow basis-full px-1.5 py-2.5 capitalize"
             variant="outline"
           >
-            <div className="flex flex-col">
-              <span className="self-end text-muted-foreground">#{next.id}</span>
-              <span className="typography-h3 max-2xl:text-sm">
+            <div className="grid grid-cols-[1fr_max-content] items-center gap-x-0.5">
+              <Typography
+                variant="small"
+                render={<span />}
+                className="col-start-1 col-end-2 text-end 2xl:row-start-1 2xl:row-end-2"
+              >
+                #{next.id}
+              </Typography>
+              <Typography
+                variant="h6"
+                render={<span />}
+                className="col-span-full row-span-2 text-end whitespace-break-spaces max-2xl:text-sm 2xl:col-start-1 2xl:col-end-2 2xl:row-start-2 2xl:row-end-3"
+              >
                 {hyphenToWhitespace(next.name)}
-              </span>
+              </Typography>
+              <div className="col-start-2 col-end-3 row-start-1 row-end-2 grid place-items-center 2xl:row-start-1 2xl:row-end-3">
+                <Image
+                  alt={next.name}
+                  src={next?.image || "/pokeball-monocolor.svg"}
+                  layout="fixed"
+                  height={44}
+                  width={44}
+                  className="size-11 object-contain"
+                />
+              </div>
             </div>
-            <Image
-              alt={next.name}
-              src={next?.image || "/pokeball-monocolor.svg"}
-              layout="fixed"
-              height={44}
-              width={44}
-              className="size-11 object-contain"
-            />
           </Button>
         </>
       ) : null}
@@ -79,7 +104,6 @@ export function PokemonNav({ prev, next }: PokemonNavProps) {
 }
 
 // todo: Evolution Chain
-
 export function EvolutionChain({ data }: { data: EvolutionChain }) {
   return (
     <>
@@ -195,7 +219,10 @@ function EvolutionCard({
       {...props}
       className={cn("flex flex-col justify-center 2xl:flex-row", className)}
     >
-      <Item>
+      <Item
+        render={<Link to="/pokemon/$name" params={{ name }} />}
+        className="w-fit"
+      >
         <ItemContent className="flex flex-col items-center">
           <Image
             alt={name}

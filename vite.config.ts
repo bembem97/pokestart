@@ -13,7 +13,12 @@ const config = defineConfig({
     tanstackStart({
       importProtection: { enabled: false },
     }),
-    netlify(),
+    netlify({
+      // disable local edge functions dev server
+      dev: {
+        edgeFunctions: { enabled: false },
+      },
+    }),
     viteReact(),
   ],
 })
