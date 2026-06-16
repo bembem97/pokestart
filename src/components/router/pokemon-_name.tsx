@@ -30,6 +30,7 @@ export function PokemonNav({ prev, next }: PokemonNavProps) {
             nativeButton={false}
             render={<Link to="/pokemon/$name" params={{ name: prev.name }} />}
             className="h-full shrink grow basis-full px-1.5 py-2.5 capitalize"
+            corner="bl"
             variant="outline"
           >
             <div className="grid grid-cols-[max-content_1fr] items-center gap-x-0.5">
@@ -221,7 +222,8 @@ function EvolutionCard({
     >
       <Item
         render={<Link to="/pokemon/$name" params={{ name }} />}
-        className="w-fit"
+        className="w-fit hover:bg-background/80!"
+        corner="dia"
       >
         <ItemContent className="flex flex-col items-center">
           <Image

@@ -29,6 +29,7 @@ type TypographyProps = useRender.ComponentProps<"span"> &
 export default function Typography({
   render,
   variant = "span",
+  className,
   ...props
 }: TypographyProps) {
   const _render = render as
@@ -48,7 +49,7 @@ export default function Typography({
   const element = useRender({
     defaultTagName: _variant || "span",
     props: mergeProps<"span">(
-      { className: cn(typography({ variant })) },
+      { className: cn(typography({ variant }), className) },
       props
     ),
     render,

@@ -36,12 +36,16 @@ function ItemSeparator({
 }
 
 const itemVariants = cva(
-  "group/item flex w-full flex-wrap items-center rounded-none border text-sm transition-colors duration-75 outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 [a]:transition-colors [a]:hover:bg-foreground/15 dark:[a]:hover:bg-muted/50",
+  [
+    "group/item flex w-full flex-wrap items-center rounded-none border text-sm transition-all duration-75 outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 [a]:transition-all [a]:hover:scale-105 [a]:hover:bg-muted/80 dark:[a]:hover:bg-muted/25",
+  ],
   {
     variants: {
       variant: {
         none: undefined,
-        default: "border-transparent",
+        default: [
+          "border-transparent not-dark:[a]:shadow not-dark:[a]:shadow-transparent not-dark:[a]:hover:shadow-foreground/50 dark:[a]:hover:border-primary/25 dark:[a]:hover:bg-primary/2",
+        ],
         outline: "border-border",
         muted: "border-transparent bg-muted/50",
         pokemon: [
@@ -49,6 +53,10 @@ const itemVariants = cva(
           "dark:bg-(--item-color)/5",
           "[a]:hover:bg-(--item-color)/9 not-dark:[a]:hover:border-(--contrast-color)/35",
         ],
+      },
+      corner: {
+        dia: "bevel-dia",
+        br: "bevel-br",
       },
       size: {
         default: "gap-3.5 px-4 py-3.5",
@@ -118,6 +126,7 @@ function Item({
   className,
   variant = "default",
   size = "default",
+  corner,
   color,
   render,
   ...props
@@ -126,7 +135,9 @@ function Item({
     defaultTagName: "div",
     props: mergeProps<"div">(
       {
-        className: cn(itemVariants({ variant, size, className, color })),
+        className: cn(
+          itemVariants({ corner, variant, size, className, color })
+        ),
       },
       props
     ),

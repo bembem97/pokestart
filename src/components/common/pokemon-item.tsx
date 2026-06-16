@@ -17,6 +17,10 @@ import type { PokemonType } from "@/types/pokedex-colors"
 import { Badge } from "../ui/badge"
 import { PokemonType as Pokemon } from "./pokemon-type"
 import React from "react"
+import { CardContent, Card, CardAction, CardHeader } from "../ui/card"
+import type { Types } from "@/types/route-types"
+import Typography from "./typography"
+import { POKEMON } from "@/const/pokemon"
 
 // todo: Pokedex Generation Items
 export function GenerationItemGroup({
@@ -43,7 +47,8 @@ export function GenerationItem({
   return (
     <Item
       {...props}
-      className={cn("shrink grow basis-full 3xl:basis-1/3", className)}
+      corner="br"
+      className={cn(["shrink grow basis-full 3xl:basis-1/3"], className)}
       render={<Link to="/pokedex/$generation" params={{ generation: id }} />}
     >
       {children}
@@ -59,7 +64,10 @@ export function GenerationItemMedia({
 }: React.ComponentProps<typeof ItemMedia> & { image: string; name: string }) {
   return (
     <ItemMedia {...props}>
-      <Avatar size="lg">
+      <Avatar
+        size="lg"
+        className="group-hover/item:after:border-foreground/25 dark:group-hover/item:after:border-primary/25"
+      >
         <AvatarImage src={image} />
         <AvatarFallback>{name.charAt(0)}</AvatarFallback>
       </Avatar>
@@ -85,7 +93,7 @@ export function GenerationItemActions({
 }: React.ComponentProps<typeof ItemActions>) {
   return (
     <ItemActions {...props}>
-      <ChevronsRightIcon className="size-4 text-(--contrast-color) group-hover/item:animate-this-way" />
+      <ChevronsRightIcon className="size-4 text-(--contrast-color) group-hover/item:animate-this-way group-hover/item:text-primary" />
     </ItemActions>
   )
 }
@@ -131,6 +139,7 @@ export function PokemonCard({
   return (
     <Item
       {...props}
+      corner="dia"
       render={<Link to="/pokemon/$name" params={{ name }} />}
       variant="default"
       className="isolote @container/iconic relative before:absolute before:inset-0 before:-z-10 before:bg-[url('/pokeball-monocolor.svg')] before:bg-size-[60%] before:bg-position-[100%_50%] before:bg-no-repeat before:opacity-5"
@@ -186,7 +195,7 @@ export function PokemonCardMedia({
 // todo: Pokemon Type Badges
 export function TypeBadges({ types }: { types: PokemonType[] }) {
   return (
-    <div className="flex gap-2">
+    <div className="flex items-center @sm/iconic:gap-2">
       {types.map((type) => (
         <Badge key={type} variant="secondary">
           <Pokemon type={type} className="text-[0.875em]" />
@@ -221,9 +230,9 @@ export function TypeItem({
   return (
     <Item
       {...props}
+      corner="dia"
       render={<Link to="/type/$id" params={{ id: type }} />}
       key={type}
-      variant="default"
       className="shrink grow basis-1/4 3xl:basis-1/5 5xl:basis-1/7"
     >
       <ItemContent className="items-center">
@@ -231,5 +240,48 @@ export function TypeItem({
         <ItemDescription className="capitalize">{type}</ItemDescription>
       </ItemContent>
     </Item>
+  )
+}
+
+export function TypeCard({
+  children,
+  className,
+  type,
+  ...props
+}: React.ComponentProps<typeof Card> & { type: Types }) {
+  return (
+    <Card
+      {...props}
+      className={cn(
+        "shrink grow basis-1/4 3xl:basis-1/5 5xl:basis-1/7",
+        className
+      )}
+      render={<Link to="/type/$id" params={{ id: type.name }} />}
+    >
+      <CardHeader>
+        <Pokemon type={type.name} className="size-11" />
+        <CardAction className="flex h-full items-center p-2.5 pr-1">
+          <ChevronsRightIcon className="size-4 -translate-y-1/2 group-hover/card:animate-this-way group-hover/card:text-primary" />
+        </CardAction>
+      </CardHeader>
+      <CardContent className="flex grow flex-col gap-y-1.5 p-2.5 capitalize">
+        <Typography variant="span">{type.name}</Typography>
+        <Typography
+          variant="small"
+          render={<span />}
+          className="text-muted-foreground"
+        >
+          {type.total} {POKEMON}
+        </Typography>
+
+        <div className="flex h-full flex-wrap content-end items-end gap-0.5">
+          {type.weakness.map((agay) => (
+            <Badge key={agay} variant="pokemon" color={agay as PokemonType}>
+              {agay}
+            </Badge>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
   )
 }

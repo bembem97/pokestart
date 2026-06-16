@@ -4,7 +4,7 @@ import { EvolutionChain, PokemonNav } from "@/components/router/pokemon-_name"
 import { Badge } from "@/components/ui/badge"
 import { Item, ItemContent } from "@/components/ui/item"
 import { Separator } from "@/components/ui/separator"
-import { POKEDEX } from "@/const/pokemon"
+import { POKEDEX, POKEMON } from "@/const/pokemon"
 import { Pokemon, type PokeAPI } from "@/lib/pokedex-api"
 import { getIdFromURL, getImagePathname } from "@/lib/pokemon-utils"
 import { createTitle } from "@/lib/seo"
@@ -29,7 +29,7 @@ import React from "react"
 const file_path = "pokestart/src/function/pokemon-_name.ts"
 
 export const getPokemonFn = createServerFn({ method: "GET" })
-  .inputValidator((id: string) => id)
+  .validator((id: string) => id)
   .handler(async ({ data: current }) => {
     try {
       const pokemon = await Pokemon.getPokemonByName(current)
@@ -73,6 +73,7 @@ export const getPokemonFn = createServerFn({ method: "GET" })
           pokemon.sprites.other["official-artwork"].front_default ||
           pokemon.sprites.other.dream_world.front_default ||
           pokemon.sprites.other.home.front_default ||
+          getImagePathname(getIdFromURL(pokemon.species.url)) ||
           "/pokeball-multicolor.svg",
         color: species.color.name as PokemonColor,
         shape: species.shape.name,
@@ -154,7 +155,7 @@ function chainWithImage(chain: PokeAPI.Chain): ChainWithImage {
 
 // TODO: Pokemon Neighbors | Prev and Next Pokemon | Navigation
 export const getPokemonNeighborsFn = createServerFn({ method: "GET" })
-  .inputValidator((id: string) => id)
+  .validator((id: string) => id)
   .handler(async ({ data: currentPokemon }) => {
     const { results } = (await Pokemon.getPokemonsList()) as {
       results: { name: string; url: string }[]
@@ -190,7 +191,7 @@ export const getPokemonNeighborsFn = createServerFn({ method: "GET" })
   })
 
 const getPokemon = createServerFn({ method: "GET" })
-  .inputValidator((name: string) => name)
+  .validator((name: string) => name)
   .handler(async ({ data: name }) => {
     const pokemon = await getPokemonFn({ data: name })
     const neighbors = await getPokemonNeighborsFn({ data: pokemon._name })
@@ -219,7 +220,7 @@ function RouteComponent() {
         <PokemonDetails data={details} />
       </section>
 
-      <div className="container-spacing">
+      <div className="container-spacing inset-shadow-lg scanlines space-y-6 bg-foreground/2 py-8">
         <Typography variant="h2" className="mx-auto w-fit">
           Evolutions
         </Typography>
@@ -236,7 +237,9 @@ function PokemonInfo({ data }: { data: Info }) {
 
   return (
     <div className="space-y-4 3xl:col-start-2 3xl:col-end-3 3xl:row-start-1 3xl:row-end-2">
-      <Typography>#{id}</Typography>
+      <Typography aria-hidden="true" className="before:content-['#']">
+        {id}
+      </Typography>
       <span className="sr-only">
         {POKEDEX} {id}
       </span>
@@ -328,7 +331,10 @@ function PokemonArtwork({ data }: { data: Artwork }) {
             height={200}
             className="mx-auto size-80 object-contain"
           />
-          <div className="flex justify-center gap-2">
+          <div
+            className="flex justify-center gap-2"
+            aria-label={`${POKEMON} Type`}
+          >
             {types.map((type) => (
               <Badge
                 key={type}

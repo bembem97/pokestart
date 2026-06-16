@@ -255,7 +255,7 @@ function IconicPokemon({ data }: { data: PokemonIconic[] }) {
 
       <div className="item-gap grid grid-cols-2 2xl:grid-cols-4">
         {data.map(({ id, image, name, types }) => (
-          <PokemonCard key={id} name={name}>
+          <PokemonCard key={id} name={name} className="@container/iconic">
             <TypeBadges types={types} />
             <PokemonCardMedia id={id} image={image} name={name} />
           </PokemonCard>

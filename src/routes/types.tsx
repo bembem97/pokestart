@@ -1,18 +1,28 @@
-import { TypeItem, TypeItemGroup } from "@/components/common/pokemon-item"
+import { TypeCard, TypeItemGroup } from "@/components/common/pokemon-item"
 import Typography from "@/components/common/typography"
 import { POKEMON } from "@/const/pokemon"
 import { Pokemon } from "@/lib/pokedex-api"
 import { createTitle } from "@/lib/seo"
-import type { PokemonType } from "@/types/pokedex-colors"
+import type { Types } from "@/types/route-types"
 import { createFileRoute } from "@tanstack/react-router"
 import { createServerFn } from "@tanstack/react-start"
 
 const getPokemonTypes = createServerFn().handler(async () => {
-  const types: PokemonType[] = await Pokemon.getTypesList({ limit: 18 })
-    .then((res) => res.results.map(({ name }) => name as PokemonType))
+  const types: Types[] = await Pokemon.getTypesList({ limit: 18 })
+    .then((res) => {
+      const data = res.results.map(async ({ name }) => {
+        const type = await Pokemon.getTypeByName(name)
+        const total = type.pokemon.length
+        const weakness = type.damage_relations.double_damage_from.map(
+          ({ name }) => name
+        )
+        return { name, total, weakness } as Types
+      })
+      return Promise.all(data)
+    })
     .catch((err) => {
       console.error('Error in "pokestart/src/routes/types.tsx"', err)
-      return [] as PokemonType[]
+      return [] as Types[]
     })
   return types
 })
@@ -29,12 +39,21 @@ function RouteComponent() {
   const types = Route.useLoaderData()
   return (
     <div className="container-spacing space-y-6 pt-2 pb-6">
-      <Typography variant="h1">
-        {POKEMON} Types ({types.length})
-      </Typography>
+      <div className="flex flex-wrap gap-1">
+        <Typography variant="h1" className="basis-full">
+          {POKEMON} Types
+        </Typography>
+        <Typography
+          variant="p"
+          className="after:ml-1 after:inline-block after:content-['•']"
+        >
+          {types.length} Types
+        </Typography>
+        <Typography variant="p">Weaknesses shown per card.</Typography>
+      </div>
       <TypeItemGroup>
         {types.map((type) => (
-          <TypeItem key={type} type={type} />
+          <TypeCard key={type.name} type={type} />
         ))}
       </TypeItemGroup>
     </div>

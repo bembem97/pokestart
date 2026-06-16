@@ -4,6 +4,7 @@
 @import "@fontsource-variable/inter";
 @import "./styles-colors.css";
 @import "./styles-animation.css";
+@import "./styles-fx.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -173,7 +174,8 @@
   html {
     @apply font-sans;
     scrollbar-width: thin;
-    scrollbar-color: var(--primary) var(--background);
+    scrollbar-color: var(--primary)
+      color-mix(in hsl, var(--primary-foreground) 15%, transparent);
   }
 }
 

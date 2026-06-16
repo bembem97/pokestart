@@ -38,7 +38,23 @@ const buttonVariants = cva(
         "icon-sm": "size-9",
         "icon-lg": "size-11",
       },
+      corner: {
+        bl: true,
+        br: true,
+      },
     },
+    compoundVariants: [
+      {
+        size: ["default", "xs", "sm", "lg"],
+        corner: "bl",
+        className: "bevel-bl",
+      },
+      {
+        size: ["default", "xs", "sm", "lg"],
+        corner: "br",
+        className: "bevel-br",
+      },
+    ],
     defaultVariants: {
       variant: "default",
       size: "default",
@@ -50,12 +66,13 @@ function Button({
   className,
   variant = "default",
   size = "default",
+  corner = "br",
   ...props
 }: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
   return (
     <ButtonPrimitive
       data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
+      className={cn(buttonVariants({ corner, variant, size, className }))}
       {...props}
     />
   )

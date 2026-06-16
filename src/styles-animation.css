@@ -69,3 +69,33 @@
     scale: var(--tw-scale-x) var(--tw-scale-y);
   }
 }
+
+@utility animate-scale-up {
+  animation: scale-up 100ms linear;
+}
+
+@utility animate-scale-down {
+  animation: scale-down 100ms linear;
+}
+
+@keyframes scale-up {
+  from {
+    opacity: 0;
+    transform: scale(0.1);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes scale-down {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.1);
+  }
+}

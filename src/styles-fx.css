@@ -1,0 +1,33 @@
+@layer components {
+  .scanlines {
+    @apply relative;
+
+    background-image: repeating-linear-gradient(
+      to bottom,
+      color-mix(in oklch, var(--color-chart-1) 7%, transparent),
+      color-mix(in oklch, var(--color-chart-1) 7%, transparent) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+  }
+}
+
+@layer utilities {
+  @supports (corner-shape: bevel) {
+    .bevel-dia {
+      @apply rounded-tl-lg rounded-br-lg;
+      corner-top-left-shape: bevel;
+      corner-bottom-right-shape: bevel;
+    }
+
+    .bevel-br {
+      @apply rounded-br-lg;
+      corner-bottom-right-shape: bevel;
+    }
+
+    .bevel-bl {
+      @apply rounded-bl-lg;
+      corner-bottom-left-shape: bevel;
+    }
+  }
+}

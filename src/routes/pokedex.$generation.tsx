@@ -13,7 +13,7 @@ import { createFileRoute } from "@tanstack/react-router"
 import { createServerFn } from "@tanstack/react-start"
 
 const getPokedex = createServerFn()
-  .inputValidator((generation: string) => generation)
+  .validator((generation: string) => generation)
   .handler(async ({ data: id }) => {
     return await Pokemon.getGenerationByName(id)
       .then((res) => {

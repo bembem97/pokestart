@@ -38,7 +38,7 @@ query pokeAPIQuery($name: String) {
 type QueryResult = { data: { pokemon: Omit<PokemonItem, "image">[] } }
 
 const getPokemonQuery = createServerFn({ method: "GET" })
-  .inputValidator((name: string) => name)
+  .validator((name: string) => name)
   .handler(async ({ data: name }) => {
     {
       const res = await fetch("https://graphql.pokeapi.co/v1beta2", {

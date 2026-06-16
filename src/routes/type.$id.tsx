@@ -45,7 +45,7 @@ const damageRelation = (data: PokeAPI.NamedAPIResource) =>
   data.name as PokemonType
 
 const getType = createServerFn()
-  .inputValidator((type: PokemonType) => type)
+  .validator((type: PokemonType) => type)
   .handler(async ({ data: name }) => {
     const type: PokemonTypeProps | null = await PokemonAPI.getTypeByName(name)
       .then((res) => {

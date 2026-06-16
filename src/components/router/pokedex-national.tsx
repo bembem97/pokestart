@@ -25,7 +25,7 @@ interface PokemonPagination {
 }
 
 const getNationalPokedex = createServerFn()
-  .inputValidator((pageParam: number) => pageParam)
+  .validator((pageParam: number) => pageParam)
   .handler(async ({ data: pageParam }) => {
     const pokemon: PokemonPagination = await Pokemon.getPokemonSpeciesList({
       limit: LIMIT,
