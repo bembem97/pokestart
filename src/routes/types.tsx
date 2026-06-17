@@ -1,4 +1,4 @@
-import { TypeCard, TypeItemGroup } from "@/components/common/pokemon-item"
+import { TypeCard } from "@/components/common/pokemon-item"
 import Typography from "@/components/common/typography"
 import { POKEMON } from "@/const/pokemon"
 import { Pokemon } from "@/lib/pokedex-api"
@@ -51,11 +51,11 @@ function RouteComponent() {
         </Typography>
         <Typography variant="p">Weaknesses shown per card.</Typography>
       </div>
-      <TypeItemGroup>
+      <div className="grid grid-cols-2 gap-2 xl:grid-cols-3 5xl:grid-cols-4 6xl:grid-cols-6">
         {types.map((type) => (
           <TypeCard key={type.name} type={type} />
         ))}
-      </TypeItemGroup>
+      </div>
     </div>
   )
 }

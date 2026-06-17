@@ -274,7 +274,7 @@ export function TypeCard({
           {type.total} {POKEMON}
         </Typography>
 
-        <div className="flex h-full flex-wrap content-end items-end gap-0.5">
+        <div className="mt-2 flex h-full flex-wrap content-end items-end gap-0.5">
           {type.weakness.map((agay) => (
             <Badge key={agay} variant="pokemon" color={agay as PokemonType}>
               {agay}
