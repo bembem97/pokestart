@@ -215,17 +215,27 @@ function DamageRelation({
         {title}
       </Typography>
       <div className="flex shrink grow basis-full flex-wrap items-center gap-2">
-        {damage.map((name) => (
-          <Badge
-            key={name}
-            variant="pokemon"
-            color={name}
-            className="capitalize"
+        {damage.length > 0 ? (
+          damage.map((name) => (
+            <Badge
+              key={name}
+              variant="pokemon"
+              color={name}
+              className="capitalize"
+            >
+              <Pokemon type={name} className="size-3.5" />
+              {name}
+            </Badge>
+          ))
+        ) : (
+          <Typography
+            variant="small"
+            render={<span />}
+            className="text-muted-foreground/75 uppercase italic"
           >
-            <Pokemon type={name} className="size-3.5" />
-            {name}
-          </Badge>
-        ))}
+            none
+          </Typography>
+        )}
       </div>
     </div>
   )

@@ -6,7 +6,7 @@ import {
 import Typography from "@/components/common/typography"
 import { Badge } from "@/components/ui/badge"
 import { Pokemon } from "@/lib/pokedex-api"
-import { getPokemon } from "@/lib/pokemon-utils"
+import { generationLabel, getPokemon } from "@/lib/pokemon-utils"
 import { createTitle } from "@/lib/seo"
 import { capitalFirstLetter, hyphenToWhitespace } from "@/lib/utils"
 import type { PokemonType } from "@/types/pokedex-colors"
@@ -78,11 +78,12 @@ function RouteComponent() {
   const { pokemon, species, flavor_text, info, variants } =
     Route.useLoaderData()
 
-  const gen_1st_word = info && info.generation.split(" ")[0]
-  const _generation =
-    gen_1st_word && gen_1st_word.charAt(0).toUpperCase() + gen_1st_word.slice(1)
-  const _roman = info && info.generation.split(" ")[1].toUpperCase()
-  const GENERATION = _generation + " " + _roman
+  // const gen_1st_word = info.generation.split(" ")[0]
+  // const _generation =
+  //   gen_1st_word && gen_1st_word.charAt(0).toUpperCase() + gen_1st_word.slice(1)
+  // const _roman = info.generation.split(" ")[1].toUpperCase()
+  // const GENERATION = _generation + " " + _roman
+  const GENERATION = generationLabel(info.generation)
 
   return (
     <div className="container-spacing space-y-12 py-6">

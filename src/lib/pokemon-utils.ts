@@ -61,3 +61,12 @@ export function fetchPage({
     next: nextItem, // this becomes your next cursor
   }
 }
+
+export function generationLabel(generation: string) {
+  const gen_1st_word = generation.split(" ")[0]
+  const _generation =
+    gen_1st_word && gen_1st_word.charAt(0).toUpperCase() + gen_1st_word.slice(1)
+  const _roman = generation.split(" ")[1].toUpperCase()
+  const GENERATION = _generation + " " + _roman
+  return GENERATION
+}

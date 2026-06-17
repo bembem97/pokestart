@@ -6,7 +6,11 @@ import { Item, ItemContent } from "@/components/ui/item"
 import { Separator } from "@/components/ui/separator"
 import { POKEDEX, POKEMON } from "@/const/pokemon"
 import { Pokemon, type PokeAPI } from "@/lib/pokedex-api"
-import { getIdFromURL, getImagePathname } from "@/lib/pokemon-utils"
+import {
+  generationLabel,
+  getIdFromURL,
+  getImagePathname,
+} from "@/lib/pokemon-utils"
 import { createTitle } from "@/lib/seo"
 import { capitalFirstLetter, hyphenToWhitespace } from "@/lib/utils"
 import type {
@@ -255,7 +259,7 @@ function PokemonInfo({ data }: { data: Info }) {
           &bull;
         </span>
         <Badge variant="ghost" className="px-0">
-          {generation}
+          {hyphenToWhitespace(generation)}
         </Badge>
       </div>
       {/* //TODO: [FLAVOR_TEXT]: [DESCRIPTION] */}
@@ -444,11 +448,8 @@ function PokemonDetails({ data }: { data: Details }) {
             </div>
             <div className="flex items-center py-2.5">
               <dt>Generation</dt>
-              <dd
-                aria-labelledby="generation"
-                className="lowercase! first-letter:capitalize"
-              >
-                {hyphenToWhitespace(generation)}
+              <dd aria-labelledby="generation">
+                {generationLabel(hyphenToWhitespace(generation))}
                 <span id="generation" className="sr-only">
                   {generation}
                 </span>
@@ -466,9 +467,13 @@ function PokemonDetails({ data }: { data: Details }) {
               <dt>Habitat</dt>
               <dd>
                 {habitat || (
-                  <div className={String.raw`after:content-["—"]`}>
-                    <span className="sr-only">{"unknown"}</span>
-                  </div>
+                  <Typography
+                    variant="small"
+                    render={<span />}
+                    className="text-muted-foreground/75 uppercase italic"
+                  >
+                    Unknown
+                  </Typography>
                 )}
               </dd>
             </div>
@@ -480,11 +485,16 @@ function PokemonDetails({ data }: { data: Details }) {
               <dt>Evolved from</dt>
               <dd>
                 {evolvesFrom || (
-                  <div className={String.raw`after:content-["—"]`}>
-                    <span className="sr-only">
-                      {"none, because it's a base species"}
-                    </span>
-                  </div>
+                  <>
+                    <Typography
+                      variant="small"
+                      className="text-muted-foreground/75 uppercase italic"
+                      aria-hidden="true"
+                    >
+                      Base
+                    </Typography>
+                    <span className="sr-only">Base Species</span>
+                  </>
                 )}
               </dd>
             </div>
