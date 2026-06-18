@@ -115,7 +115,7 @@ export function PokemonSpeciesInfinite() {
           {isFetchingNextPage ? (
             <>
               Loading{" "}
-              <PokeBallIcon className="size-5 animate-spin text-primary" />
+              <PokeBallIcon className="size-5 animate-spin text-muted dark:text-primary" />
             </>
           ) : hasNextPage ? (
             "Load More"
